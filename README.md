@@ -7,8 +7,6 @@ $ bundle exec ruby fen.rb "r3r2k/p1n2pb1/3p3p/1ppP1qN1/4N3/P3P3/1PQ2PP1/R4K1R w 
 $ open temp.htm
 ```
 
-![image](https://user-images.githubusercontent.com/2870363/182951397-721f7937-d942-47a0-832e-c48c4d99c766.png)
-
 ```ruby
 require "p5rb"
 puts( P5(500, 500) do
@@ -32,3 +30,5 @@ puts( P5(500, 500) do
   end
 end )
 ```
+
+![image](https://user-images.githubusercontent.com/2870363/182951397-721f7937-d942-47a0-832e-c48c4d99c766.png)
