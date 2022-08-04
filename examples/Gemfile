@@ -1,0 +1,4 @@
+source "https://rubygems.org"
+
+gem "fen", github: "domlupo/fen"
+gem "p5rb", path: ".."

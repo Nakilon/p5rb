@@ -1,0 +1,26 @@
+GIT
+  remote: https://github.com/domlupo/fen.git
+  revision: c45242faf6f412663f24d61b98cbe1e00a3fdb2f
+  specs:
+    fen (0.1.0)
+      thor
+
+PATH
+  remote: ..
+  specs:
+    p5rb (0.0.0)
+
+GEM
+  remote: https://rubygems.org/
+  specs:
+    thor (1.2.1)
+
+PLATFORMS
+  ruby
+
+DEPENDENCIES
+  fen!
+  p5rb!
+
+BUNDLED WITH
+   2.1.4
