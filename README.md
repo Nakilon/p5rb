@@ -1,9 +1,9 @@
 ## gem p5rb
 
 ```none
-$ cd examples
+$ cd examples/fen
 $ bundle install
-$ bundle exec ruby fen.rb "r3r2k/p1n2pb1/3p3p/1ppP1qN1/4N3/P3P3/1PQ2PP1/R4K1R w - - 0 1" > temp.htm
+$ bundle exec ruby main.rb "r3r2k/p1n2pb1/3p3p/1ppP1qN1/4N3/P3P3/1PQ2PP1/R4K1R w - - 0 1" > temp.htm
 $ open temp.htm
 ```
 

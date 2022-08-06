@@ -6,7 +6,7 @@ GIT
       thor
 
 PATH
-  remote: ..
+  remote: ../..
   specs:
     p5rb (0.0.0)
 

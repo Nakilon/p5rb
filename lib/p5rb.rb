@@ -1,11 +1,13 @@
 module P5
-  @buffer = []
   class << self
     attr_reader :buffer_setup
     attr_reader :buffer_draw
-    @buffer_setup = []
-    @buffer_draw = []
+  end
+  instance_variable_set :@buffer_setup, []
+  instance_variable_set :@buffer_draw, []
 
+  @buffer = []
+  class << self
     def background c
       @buffer.push "background(#{c})"
     end
@@ -36,19 +38,13 @@ module P5
 
     def setup &block
       module_eval &block
-      @buffer_setup = @buffer.join ";\n"
+      @buffer_setup = @buffer
       @buffer = []
     end
     def draw &block
       module_eval &block
-      @buffer_draw = @buffer.join ";\n"
+      @buffer_draw = @buffer
       @buffer = []
-    end
-    def setup_to_s
-      @buffer_setup
-    end
-    def draw_to_s
-      @buffer_draw
     end
 
   end
@@ -64,12 +60,12 @@ def P5 width, height, &block
           function setup() {
             createCanvas(#{width}, #{height});
 #{
-  P5.buffer_setup.gsub(/^/, ?\s*8)
+  P5.buffer_setup.join(";\n").gsub(/^/, ?\s*8)
 }
           }
           function draw() {
 #{
-  P5.buffer_draw.gsub(/^/, ?\s*8)
+  P5.buffer_draw.join(";\n").gsub(/^/, ?\s*8)
 }
           }
         </script>
