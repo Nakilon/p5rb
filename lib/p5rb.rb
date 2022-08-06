@@ -23,8 +23,10 @@ module P5
     def fill color
       @buffer.push "fill(#{color})"
     end
-    def rect x, y, w, h
+    def rect x, y, w, h, fill: nil
+      (@buffer.push "push()"; fill fill) if fill
       @buffer.push "rect(#{x}, #{y}, #{w}, #{h})"
+      @buffer.push "pop()" if fill
     end
     def textSize size
       @buffer.push "textSize(#{size})"
@@ -32,8 +34,10 @@ module P5
     def textAlign *args
       @buffer.push "textAlign(#{args.join ", "})"
     end
-    def text text, x, y
+    def text text, x, y, fill: nil
+      (@buffer.push "push()"; fill fill) if fill
       @buffer.push "text(#{text.inspect}, #{x}, #{y})"
+      @buffer.push "pop()" if fill
     end
 
     def setup &block

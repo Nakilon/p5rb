@@ -16,17 +16,15 @@ puts( P5(cell_size*10, cell_size*10) do
     textSize cell_size*1.3
     textAlign :CENTER, :CENTER
     translate cell_size, cell_size
-    fill 240
-    rect 0, 0, 8*cell_size, 8*cell_size
+    rect 0, 0, 8*cell_size, 8*cell_size, fill: 240
     noStroke
     [*0..7].product([*0..7]) do |i, j|
       if (i+j).odd?
-        fill 180
-        rect j*cell_size, i*cell_size, cell_size, cell_size
+        rect j*cell_size, i*cell_size, cell_size, cell_size, fill: 180
       end
       if pieces[i][j]
-        fill 255; text pieces[i][j][0], (j+0.5)*cell_size, (i+0.5)*cell_size
-        fill 0  ; text pieces[i][j][1], (j+0.5)*cell_size, (i+0.5)*cell_size
+        text pieces[i][j][0], (j+0.5)*cell_size, (i+0.5)*cell_size, fill: 255
+        text pieces[i][j][1], (j+0.5)*cell_size, (i+0.5)*cell_size, fill: 0
       end
     end
   end
