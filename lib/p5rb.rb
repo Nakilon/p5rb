@@ -14,14 +14,17 @@ module P5
     def translate x, y
       @buffer.push "translate(#{x}, #{y})"
     end
+    def circle x, y, r
+      @buffer.push "circle(#{x}, #{y}, #{r})"
+    end
     def ellipse *args
       @buffer.push "ellipse(#{args.join ?,})"
     end
     def noStroke
       @buffer.push "noStroke()"
     end
-    def fill color
-      @buffer.push "fill(#{color})"
+    def fill color, alpha = nil
+      @buffer.push "fill(#{color}#{", #{alpha}" if alpha})"
     end
     def rect x, y, w, h, fill: nil
       (@buffer.push "push()"; fill fill) if fill
