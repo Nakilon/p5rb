@@ -1,6 +1,6 @@
 ## gem p5rb
 
-Wrapper and DSL to utilize the p5.js in Ruby without diving into JS.  
+DSL to utilize the p5.js in Ruby without diving into JS.  
 Has some sugar:
 * optional `:fill` arg to set color per operation
 
