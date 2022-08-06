@@ -21,8 +21,8 @@ puts( P5(h.values.flatten.map(&f).max + 10, h.size * 20 + 20) do
     end
     textAlign :LEFT, :CENTER
     h.sort_by{ |s, v| [s[/\d+/].to_i, s] }.each_with_index do |(s, v), i|
-      STDERR.puts s
-      text s, 0, i * 20 + 20, fill: 0
+      fill 0
+      text s, 0, i * 20 + 20
       fill 0, 50
       v.each{ |_| circle f[_], i * 20 + 20, 20 }
     end
