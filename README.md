@@ -1,12 +1,32 @@
-## gem p5rb
+## gem p5rb -- Ruby DSL for p5.js
 
-DSL to utilize the p5.js in Ruby without diving into JS.  
 Has some sugar:
 * optional `:fill` arg to set color per operation
 
 TODO: validate args on Ruby level
 
 ### examples
+
+#### Moscow addresses
+
+```ruby
+# all = <integer>[n][2]
+(x_min, x_max), (y_min, y_max) = all.transpose.map(&:minmax)
+f = ->x,y{ [
+  (x - x_min).fdiv(x_max - x_min) * 500,
+  (y_max - y).fdiv(y_max - y_min) * 500,
+] }
+
+require "p5rb"
+P5 500, 500 do
+  setup do
+    stroke 0
+    all.each{ |x,y| point *f[x,y] }
+  end
+end.tap &method(:puts)
+```
+
+![image](https://user-images.githubusercontent.com/2870363/194798263-4404df53-26b0-464c-88e1-0ed17f746186.png)
 
 #### chess board FEN format renderer
 
