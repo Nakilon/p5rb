@@ -3,7 +3,9 @@
 Has some sugar:
 * optional `:fill` arg to set color per operation
 
-TODO: validate args on Ruby level
+TODO:
+* [ ] validate args on Ruby level
+* [ ] plotting library
 
 ### examples
 
