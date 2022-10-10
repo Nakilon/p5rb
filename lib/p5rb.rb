@@ -8,8 +8,14 @@ module P5
 
   @buffer = []
   class << self
-    def background c
-      @buffer.push "background(#{c})"
+    def background color
+      @buffer.push "background(#{color})"
+    end
+    def noStroke
+      @buffer.push "noStroke()"
+    end
+    def stroke color
+      @buffer.push "stroke(#{color})"
     end
     def translate x, y
       @buffer.push "translate(#{x}, #{y})"
@@ -20,9 +26,6 @@ module P5
     def ellipse *args
       @buffer.push "ellipse(#{args.join ?,})"
     end
-    def noStroke
-      @buffer.push "noStroke()"
-    end
     def fill color, alpha = nil
       @buffer.push "fill(#{color}#{", #{alpha}" if alpha})"
     end
@@ -30,6 +33,9 @@ module P5
       (@buffer.push "push()"; fill fill) if fill
       @buffer.push "rect(#{x}, #{y}, #{w}, #{h})"
       @buffer.push "pop()" if fill
+    end
+    def point x, y
+      @buffer.push "point(#{x}, #{y})"
     end
     def textSize size
       @buffer.push "textSize(#{size})"

@@ -1,6 +1,6 @@
 Gem::Specification.new do |spec|
   spec.name         = "p5rb"
-  spec.version      = "0.0.0"
+  spec.version      = "0.0.1"
   spec.summary      = "Ruby DSL for p5.js"
 
   spec.author       = "Victor Maslov aka Nakilon"
