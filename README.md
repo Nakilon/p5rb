@@ -7,7 +7,7 @@ TODO: validate args on Ruby level
 
 ### examples
 
-#### Moscow addresses
+#### scatter plot
 
 ```ruby
 # all = <integer>[n][2]
