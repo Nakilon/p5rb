@@ -20,7 +20,6 @@ f = ->x,y{ [
 require "p5rb"
 P5 500, 500 do
   setup do
-    stroke 0
     all.each{ |x,y| point *f[x,y] }
   end
 end.tap &method(:puts)
