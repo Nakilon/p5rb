@@ -3,10 +3,9 @@ module P5
     attr_reader :buffer_setup
     attr_reader :buffer_draw
   end
-  instance_variable_set :@buffer_setup, []
-  instance_variable_set :@buffer_draw, []
+  @buffer_setup = []
+  @buffer_draw = []
 
-  @buffer = []
   class << self
     def background color
       @buffer.push "background(#{color})"
@@ -23,7 +22,7 @@ module P5
     def circle x, y, r
       @buffer.push "circle(#{x}, #{y}, #{r})"
     end
-    def ellipse *args
+    def ellipse *args   # not tested yet
       @buffer.push "ellipse(#{args.join ?,})"
     end
     def fill color, alpha = nil
@@ -50,14 +49,12 @@ module P5
     end
 
     def setup &block
+      @buffer = @buffer_setup
       module_eval &block
-      @buffer_setup = @buffer
-      @buffer = []
     end
-    def draw &block
+    def draw &block   # not tested yet
+      @buffer = @buffer_draw
       module_eval &block
-      @buffer_draw = @buffer
-      @buffer = []
     end
 
   end
