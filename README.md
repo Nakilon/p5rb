@@ -1,12 +1,13 @@
 ## gem p5rb -- Ruby DSL for p5.js
 
-Has some sugar:
+It renders an HTML document with <canvas> and the JS boilerplate included.  
+It has some sugar:
 * optional `:fill` arg to set color per operation
 
 TODO:
 * [ ] validate args on Ruby level
 * [ ] plotting library
-* [ ] (dev) s/cuprite/ferrum
+* [ ] (dev) s/cuprite/ferrum?
 
 ### examples
 

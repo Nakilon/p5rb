@@ -3,4 +3,4 @@
 .DS_Store
 /*.png
 /all.tsv
-/temp.htm
+temp.*
