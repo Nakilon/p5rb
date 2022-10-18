@@ -7,6 +7,9 @@ It has some sugar:
 TODO:
 * [ ] validate args on Ruby level
 * [ ] plotting library
+  * [ ] move plotting from ruby to js level for using client window size
+  * [x] Scatter plot
+  * [ ] ...
 * [ ] (dev) s/cuprite/ferrum?
 
 ### examples
