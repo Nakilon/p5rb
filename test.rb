@@ -1,9 +1,5 @@
 require "minitest_cuprite"
-minitest_cuprite("headless": "darwin" != Gem::Platform.local.os, timeout: 10) do |_|
-  next if "darwin" != Gem::Platform.local.os
-  require "browser_reposition"
-  _.extend(BrowserReposition).reposition
-end
+minitest_cuprite "headless": "darwin" != Gem::Platform.local.os, timeout: 10
 
 require "minitest/hooks"
 describe :test do

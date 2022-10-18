@@ -6,6 +6,7 @@ Has some sugar:
 TODO:
 * [ ] validate args on Ruby level
 * [ ] plotting library
+* [ ] (dev) s/cuprite/ferrum
 
 ### examples
 
