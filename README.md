@@ -3,6 +3,7 @@
 It renders an HTML document with <canvas> and the JS boilerplate included.  
 It has some sugar:
 * optional `:fill` arg to set color per operation
+It has some built-in math plotting functions.
 
 TODO:
 * [ ] validate args on Ruby level
@@ -33,6 +34,15 @@ end.tap &method(:puts)
 ```
 
 ![image](https://user-images.githubusercontent.com/2870363/194798263-4404df53-26b0-464c-88e1-0ed17f746186.png)
+
+or use the built-in `P5.plot_scatter <integer>[n][2]`:
+
+```none
+$ curl https://storage.yandexcloud.net/gems.nakilon.pro/p5rb/all.tsv > all.tsv
+$ ruby -rp5rb -e 'puts P5.plot_scatter $<.map{ |_| _.split.map &:to_f }, reverse_y: true' all.tsv > temp.htm 
+```
+
+![image](https://user-images.githubusercontent.com/2870363/196552460-2810019d-bb06-45ad-a7e9-9aa5f3191a32.png)
 
 #### chess board FEN format renderer
 
