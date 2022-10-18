@@ -1,6 +1,6 @@
 h = {}
 require "yaml"
-YAML.load_file("table.yaml").each do |row|
+YAML.load_file(File.expand_path "table.yaml", "#{__FILE__}/../").each do |row|
   row[1].each do |s|
     h[s] ||= []
     h[s].push row[3].to_f
@@ -10,7 +10,7 @@ end
 min, max = h.values.flatten.minmax
 f = ->_{ (_ - min).fdiv(max - min) * 500 + 120 }
 
-require "p5rb"
+require "#{File.expand_path __FILE__}/../../../lib/p5rb"
 puts( P5(h.values.flatten.map(&f).max + 10, h.size * 20 + 20) do
   setup do
     noStroke

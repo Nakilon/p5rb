@@ -1,3 +1,0 @@
-source "https://rubygems.org"
-
-gem "p5rb", path: "../.."

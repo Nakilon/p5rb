@@ -1,1 +1,6 @@
 /pkg/
+/Gemfile.lock
+.DS_Store
+/*.png
+/all.tsv
+/temp.htm

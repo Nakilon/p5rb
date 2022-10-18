@@ -8,7 +8,7 @@ f = ->x,y{ [
   (y_max - y).fdiv(y_max - y_min) * 500,
 ] }
 
-require "../../lib/p5rb"
+require "#{File.expand_path __FILE__}/../../../lib/p5rb"
 P5 500, 500 do
   setup do
     all.each{ |x,y| point *f[x,y] }
