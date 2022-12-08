@@ -1,7 +1,7 @@
 require "minitest_cuprite"
-minitest_cuprite "headless": "darwin" != Gem::Platform.local.os, timeout: 10
+minitest_cuprite "headless": "darwin" != Gem::Platform.local.os, timeout: 5
 
-require "minitest/hooks"
+require "minitest/autorun"
 describe :test do
   def base64 string, status
     assert status.exitstatus.zero?, string
