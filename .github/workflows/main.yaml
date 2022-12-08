@@ -11,6 +11,6 @@ jobs:
     runs-on: ubuntu-latest
     steps:
     - uses: actions/checkout@v2
-    - timeout-minutes: 1
+    - timeout-minutes: 2
       run: |
         docker run -v $(pwd):/checkout -w /checkout ruby:2.4-alpine3.10 sh -c "apk add git build-base vips chromium ttf-dejavu && gem update bundler && bundle install --no-cache && bundle exec ruby test.rb"
