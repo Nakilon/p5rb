@@ -9,7 +9,12 @@ TODO:
 * [ ] validate args on Ruby level
 * [ ] plotting library
   * [ ] move plotting from ruby to js level for using client window size
-  * [x] Scatter plot
+  * [x] [Scatter plot](https://en.wikipedia.org/wiki/Scatter_plot)
+  * [x] [Bar chart](https://en.wikipedia.org/wiki/Bar_chart)
+  * [ ] https://en.wikipedia.org/wiki/Line_chart
+  * [ ] https://en.wikipedia.org/wiki/Vector_field
+  * [ ] https://en.wikipedia.org/wiki/Radar_chart
+  * [ ] https://en.wikipedia.org/wiki/Heat_map
   * [ ] ...
 * [ ] (dev) s/cuprite/ferrum?
 
@@ -78,3 +83,24 @@ end )
 #### dot strip plot
 
 ![image](https://user-images.githubusercontent.com/2870363/183269117-1f7c94eb-6eaa-4b06-a6e8-947d77b56d82.png)
+
+#### grouped bar chart
+
+```ruby
+require "p5rb"
+require "yaml"
+puts P5.plot_bar YAML.load DATA.read
+
+__END__
+
+---
+2022-11-12:
+  user82827122: 17
+  user31604664: 18
+  user824572411: 2
+2022-11-13:
+  user31604664: 11
+  user82827122: 23
+2022-11-14:
+...
+```

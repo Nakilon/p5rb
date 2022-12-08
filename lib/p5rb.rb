@@ -34,7 +34,7 @@ module P5
         @buffer.push "ellipse(#{args.join ?,})"
       end
       def fill color, alpha = nil
-        @buffer.push "fill(#{color}#{", #{alpha}" if alpha})"
+        @buffer.push "fill(#{color.inspect}#{", #{alpha}" if alpha})"
       end
       def rect x, y, w, h, fill: nil
         (@buffer.push "push()"; fill fill) if fill
@@ -54,6 +54,9 @@ module P5
         (@buffer.push "push()"; fill fill) if fill
         @buffer.push "text(#{text.inspect}, #{x}, #{y})"
         @buffer.push "pop()" if fill
+      end
+      def map *args
+        "map(#{args.join ", "})"
       end
     end
   end
@@ -103,6 +106,27 @@ module P5
         end
       end
     end
+    def plot_bar data
+      cls = data.values.flat_map(&:keys).uniq.sort
+      size = cls.size + 1
+      from, to = data.keys.minmax
+      max = data.values.flat_map(&:values).max
+      P5 500, 500 do
+        setup do
+          noStroke
+          textAlign :CENTER
+          cls.each_with_index{ |_, i| text _, 50+400/(size-2)*i, 25, fill: %w{ red green blue }[i] }
+          textAlign :RIGHT, :TOP
+          (from..to).each do |date|
+            y = map date.ajd.to_i, from.ajd.to_i, to.ajd.to_i, 50, 450
+            text date.strftime("%m-%d"), 45, y
+            rect 50, y,                            map(data.fetch(date,{})[cls[0]]||0, 0, max, 0, 400), 400/(to-from)/size, fill: "red"
+            rect 50, "#{y}+#{400/(to-from)/size}", map(data.fetch(date,{})[cls[1]]||0, 0, max, 0, 400), 400/(to-from)/size, fill: "green"
+            rect 50, "#{y}+#{800/(to-from)/size}", map(data.fetch(date,{})[cls[2]]||0, 0, max, 0, 400), 400/(to-from)/size, fill: "blue"
+          end
+        end
+      end
+    end
   end
 end
 
@@ -116,12 +140,12 @@ def P5 width, height, &block
           function setup() {
             createCanvas(#{width}, #{height});
 #{
-  ::P5.buffer_setup.join(";\n").gsub(/^/, ?\s*8)
+  ::P5.buffer_setup.join(";\n").gsub(/^/, ?\s*12)
 }
           }
           function draw() {
 #{
-  ::P5.buffer_draw.join(";\n").gsub(/^/, ?\s*8)
+  ::P5.buffer_draw.join(";\n").gsub(/^/, ?\s*12)
 }
           }
         </script>
