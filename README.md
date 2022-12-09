@@ -1,11 +1,12 @@
 ## gem p5rb -- Ruby DSL for p5.js
 
-It renders an HTML document with <canvas> and the JS boilerplate included.  
-It has some sugar:
+It builds an HTML document with the JS boilerplate included.  
+It has some built-ins for charting.  
+It has some p5.js related sugar, such as:  
 * optional `:fill` arg to set color per operation
-It has some built-in math plotting functions.
 
 TODO:
+* [x] cuprite test Github Action
 * [ ] validate args on Ruby level
 * [ ] plotting library
   * [ ] move plotting from ruby to js level for using client window size
@@ -23,7 +24,6 @@ TODO:
   * [ ] https://en.wikipedia.org/wiki/Data_and_information_visualization
   * [ ] https://en.wikipedia.org/wiki/Streamgraph
   * [ ] ...
-* [ ] (dev) s/cuprite/ferrum?
 
 ### examples
 
@@ -113,3 +113,7 @@ __END__
 ```
 
 ![image](https://user-images.githubusercontent.com/2870363/206519053-d2f1a770-1582-4d0d-b8a9-1d710598dec4.png)
+
+#### stacked bar chart
+
+![image](https://user-images.githubusercontent.com/2870363/206749990-7c06144e-6ac0-4154-a333-06e9cbcb025e.png)
