@@ -34,7 +34,7 @@ module P5
         @buffer.push "ellipse(#{args.join ?,})"
       end
       def fill color, alpha = nil
-        @buffer.push "fill(#{color.inspect}#{", #{alpha}" if alpha})"
+        @buffer.push "fill(#{color}#{", #{alpha}" if alpha})"
       end
       def rect x, y, w, h, fill: nil
         (@buffer.push "push()"; fill fill) if fill
@@ -49,6 +49,12 @@ module P5
       end
       def textAlign *args
         @buffer.push "textAlign(#{args.join ", "})"
+      end
+      def textWidth text
+        @buffer.push "textWidth(#{text.inspect})"
+      end
+      def textAscent text
+        @buffer.push "textAscent(#{text.inspect})"
       end
       def text text, x, y, fill: nil
         (@buffer.push "push()"; fill fill) if fill
@@ -106,7 +112,8 @@ module P5
         end
       end
     end
-    def plot_bar data
+    def plot_bar_grouped data
+      # TODO: this is currently pretty much hardcoded for a time dates charting
       cls = data.values.flat_map(&:keys).uniq.sort
       size = cls.size + 1
       from, to = data.keys.minmax
@@ -115,15 +122,53 @@ module P5
         setup do
           noStroke
           textAlign :CENTER
-          cls.each_with_index{ |_, i| text _, 50+400/(size-2)*i, 25, fill: %w{ red green blue }[i] }
+          cls.each_with_index{ |_, i| text _, 50+400/(size-2)*i, 25, fill: %w{ 'red' 'green' 'blue' }[i] }
           textAlign :RIGHT, :TOP
           (from..to).each do |date|
             y = map date.ajd.to_i, from.ajd.to_i, to.ajd.to_i, 50, 450
             text date.strftime("%m-%d"), 45, y
-            rect 50, y,                            map(data.fetch(date,{})[cls[0]]||0, 0, max, 0, 400), 400/(to-from)/size, fill: "red"
-            rect 50, "#{y}+#{400/(to-from)/size}", map(data.fetch(date,{})[cls[1]]||0, 0, max, 0, 400), 400/(to-from)/size, fill: "green"
-            rect 50, "#{y}+#{800/(to-from)/size}", map(data.fetch(date,{})[cls[2]]||0, 0, max, 0, 400), 400/(to-from)/size, fill: "blue"
+            rect 50, y,                            map(data.fetch(date,{})[cls[0]]||0, 0, max, 0, 400), 400/(to-from)/size, fill: "'red'"
+            rect 50, "#{y}+#{400/(to-from)/size}", map(data.fetch(date,{})[cls[1]]||0, 0, max, 0, 400), 400/(to-from)/size, fill: "'green'"
+            rect 50, "#{y}+#{800/(to-from)/size}", map(data.fetch(date,{})[cls[2]]||0, 0, max, 0, 400), 400/(to-from)/size, fill: "'blue'"
           end
+        end
+      end
+    end
+    def plot_bar_stacked data, names, colorize
+      count = {}
+      max = data.map do |_, day|
+        day.each{ |k,v| count[k] ||= 0; count[k] += v }.map(&:last).reduce :+
+      end.max
+      pairs = {}
+      data.each_cons(2) do |(_, day1), (_, day2)|
+        (day1.map(&:first) & day2.map(&:first)).each{ |_| pairs[_] ||= 0; pairs[_] += 1 }
+      end
+      require "pcbr"
+      require "set"
+      pcbr = PCBR.new
+      count.max_by(colorize){ |k,v| v }.each{ |k,v| pcbr.store k, [-v, pairs[k]||0] }
+      top = pcbr.sorted
+      size = 500
+      P5 size, size do
+        setup do
+          noStroke
+          textAlign :RIGHT, :TOP
+          border = 25
+          left = "#{border} + textWidth(\"00-00 - 00-00\") + 5"
+          data.each_with_index do |(bin, day), i|
+            y1 = map i, 0, data.size, border, size-border
+            y2 = map i+1, 0, data.size, border, size-border
+            text bin, "#{left} - 5", y1
+            pos = 0
+            day.sort_by{ |k,| top.index(k) || top.size }.each do |k, v|
+              rect \
+                map(pos, 0, max, left, size-border), y1,
+                map(v, 0, max, 0, "#{size}-#{border}-(#{left})"), "#{y2}-#{y1}",
+                fill: top.include?(k) ? "color('hsl(#{(((3-Math.sqrt(5))*180 * top.index(k)) % 360).round}, 75%, 75%)')" : "color('hsl(0, 0%, 75%)')"
+              pos += v
+            end
+          end
+          top.each_with_index{ |id, i| text names[id].inspect[1..-2], size-border, "#{border} + textAscent('X') * #{i}", fill: "color('hsl(#{(((3-Math.sqrt(5))*180 * top.index(id)) % 360).round}, 75%, 75%)')" }
         end
       end
     end
@@ -135,6 +180,7 @@ def P5 width, height, &block
   <<~HEREDOC
     <html>
       <head>
+        <meta charset="UTF-8">
         <script src="https://github.com/processing/p5.js/releases/download/v1.4.2/p5.min.js"></script>
         <script>
           function setup() {

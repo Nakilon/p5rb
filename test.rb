@@ -1,5 +1,5 @@
 require "minitest_cuprite"
-minitest_cuprite "headless": "darwin" != Gem::Platform.local.os, timeout: 5
+minitest_cuprite "headless": "darwin" != Gem::Platform.local.os, timeout: 10
 require "minitest/autorun"
 
 describe :test do
@@ -32,15 +32,20 @@ describe :test do
   end
   it "scatter plot" do
     unless File.exist? "all.tsv"
+      # TODO: move this to the example source code because you want to run it outside of test suite
       require "open-uri"
       File.write "all.tsv", open("https://storage.yandexcloud.net/gems.nakilon.pro/p5rb/all.tsv", &:read)
     end
     open_file *Open3.capture2e("ruby examples/moscow/main.rb all.tsv")
     check 0, 0x2e0f3f2f9c983034009ef8fafcf870304f0f3020c102403c639e7c78f8020404
   end
-  it "bar chart" do
-    open_data_uri *Open3.capture2e("ruby examples/tg_export/main.rb")
+  it "grouped bar chart" do
+    open_data_uri *Open3.capture2e("ruby examples/bar_grouped.rb")
     check 1, 0xfd7cf00080fec23d7ffee0408340c2fffe0000d040ff388167008b80408080ff
+  end
+  it "stacked bar chart" do
+    open_file *Bundler.with_unbundled_env{ Open3.capture2e("bundle exec ruby examples/bar_stacked.rb") }
+    check 0, 0x63301b380a1ff87fffbf7c3f1f200000f7b3f8bf037c0081ff7f008040fcfc83
   end
 
 end

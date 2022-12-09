@@ -1,6 +1,6 @@
-require "#{File.expand_path __FILE__}/../../../lib/p5rb"
+require_relative "../lib/p5rb"
 require "yaml"
-puts P5.plot_bar YAML.load DATA.read
+puts P5.plot_bar_grouped YAML.load DATA.read
 
 __END__
 
