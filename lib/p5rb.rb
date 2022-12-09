@@ -135,6 +135,7 @@ module P5
       end
     end
     def plot_bar_stacked data, names, colorize
+      # TODO: this is currently hardcoded for '00-00 - 00-00' time axis tick labels width
       count = {}
       max = data.map do |_, day|
         day.each{ |k,v| count[k] ||= 0; count[k] += v }.map(&:last).reduce :+

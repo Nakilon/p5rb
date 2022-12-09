@@ -45,7 +45,7 @@ describe :test do
   end
   it "stacked bar chart" do
     open_file *Bundler.with_unbundled_env{ Open3.capture2e("bundle exec ruby examples/bar_stacked.rb") }
-    check 0, 0x63301b380a1ff87fffbf7c3f1f200000f7b3f8bf037c0081ff7f008040fcfc83
+    check 1, 0x63301b380a1ff87fffbf7c3f1f200000f7b3f8bf037c0081ff7f008040fcfc83
   end
 
 end
