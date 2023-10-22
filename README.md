@@ -12,12 +12,13 @@ TODO:
   * [ ] move plotting from ruby to js level for using client window size
   * [ ] https://en.wikipedia.org/wiki/Chart
     * [x] [Scatter plot](https://en.wikipedia.org/wiki/Scatter_plot)
-    * [ ] [Bar chart](https://en.wikipedia.org/wiki/Bar_chart)
+    * [x] [Bar chart](https://en.wikipedia.org/wiki/Bar_chart)
       * [x] Grouped bar chart
       * [x] Stacked bar chart
     * [ ] [Area chart](https://en.wikipedia.org/wiki/Area_chart)
     * [ ] https://en.wikipedia.org/wiki/Line_chart
     * [ ] https://en.wikipedia.org/wiki/Heat_map
+    * [ ] https://en.wikipedia.org/wiki/Recurrence_plot
   * [ ] https://en.wikipedia.org/wiki/List_of_graphical_methods
   * [ ] https://en.wikipedia.org/wiki/Vector_field
   * [ ] https://en.wikipedia.org/wiki/Radar_chart
@@ -96,7 +97,7 @@ end )
 ```ruby
 require "p5rb"
 require "yaml"
-puts P5.plot_bar YAML.load DATA.read
+puts P5.plot_bar_grouped YAML.load DATA.read
 
 __END__
 
